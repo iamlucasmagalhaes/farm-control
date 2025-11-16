@@ -14,8 +14,9 @@ services:
       - db_data:/var/lib/mysql
 
   symfony:
-    build: .
     container_name: symfony
+    image: symfony
+    build: .
     volumes:
       - ./:/var/www/html
     environment:
