@@ -1,0 +1,29 @@
+services:
+  database:
+    image: mysql:8.0
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  symfony:
+    build: .
+    container_name: symfony
+    volumes:
+      - ./:/var/www/html
+    environment:
+      DATABASE_URL: mysql://user:password@database:3306/app?serverVersion=8.0&charset=utf8mb4
+    ports:
+      - "8080:80"
+    depends_on:
+      - database
+
+volumes:
+  db_data:
