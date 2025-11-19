@@ -164,6 +164,13 @@
       <tag name="controller.service_arguments"/>
       <tag name="routing.route_loader"/>
     </service>
+    <service id="App\Controller\CowController" class="App\Controller\CowController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\CowController"/>
+      </call>
+    </service>
     <service id="App\Controller\FarmController" class="App\Controller\FarmController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -225,7 +232,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.22UJl5g"/>
+      <argument type="service" id=".service_locator.JXoFkwp"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1328,7 +1335,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.22UJl5g"/>
+      <argument type="service" id=".service_locator.JXoFkwp"/>
     </service>
     <service id="routing.resolver" class="Symfony\Component\Config\Loader\LoaderResolver">
       <call method="addLoader">
@@ -2798,6 +2805,10 @@
       <argument type="service" id="maker.file_manager"/>
       <argument type="service" id="maker.generator"/>
     </service>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CowController" class="App\Controller\CowController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CowController" class="App\Controller\CowController" autowire="true" abstract="true"/>
+    <service id=".instanceof.App\Controller\CowController.0.App\Controller\CowController" class="App\Controller\CowController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\CowController" class="App\Controller\CowController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\FarmController" class="App\Controller\FarmController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\FarmController" class="App\Controller\FarmController" autowire="true" abstract="true"/>
     <service id=".instanceof.App\Controller\FarmController.0.App\Controller\FarmController" class="App\Controller\FarmController" autowire="true" abstract="true"/>
@@ -3254,6 +3265,19 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.zHyJIs5" method="withContext"/>
     </service>
+    <service id=".service_locator.riTBY7f" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="farmRepository" type="service_closure" id="App\Repository\FarmRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.riTBY7f.App\Controller\CowController::index()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\CowController::index()"/>
+      <argument>App\Controller\CowController::index()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.riTBY7f" method="withContext"/>
+    </service>
     <service id=".service_locator.lDWHgod" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -3279,17 +3303,19 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.Kq27LHM" method="withContext"/>
     </service>
-    <service id=".service_locator.22UJl5g" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.JXoFkwp" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
+        <argument key="App\Controller\CowController::index" type="service_closure" id=".service_locator.riTBY7f.App\Controller\CowController::index()"/>
         <argument key="App\Controller\FarmController::index" type="service_closure" id=".service_locator.lDWHgod.App\Controller\FarmController::index()"/>
         <argument key="App\Controller\VeterinarianController::index" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\VeterinarianController::index()"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
+        <argument key="App\Controller\CowController:index" type="service_closure" id=".service_locator.riTBY7f.App\Controller\CowController::index()"/>
         <argument key="App\Controller\FarmController:index" type="service_closure" id=".service_locator.lDWHgod.App\Controller\FarmController::index()"/>
         <argument key="App\Controller\VeterinarianController:index" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\VeterinarianController::index()"/>
       </argument>
@@ -3428,6 +3454,12 @@
         <argument key="parameter_bag" type="service_closure" id="parameter_bag" on-invalid="ignore"/>
       </argument>
     </service>
+    <service id=".service_locator.ZyP9f7K.App\Controller\CowController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\CowController"/>
+      <argument>App\Controller\CowController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.ZyP9f7K" method="withContext"/>
+    </service>
     <service id=".service_locator.ZyP9f7K.App\Controller\FarmController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\FarmController"/>
       <argument>App\Controller\FarmController</argument>
@@ -3530,6 +3562,7 @@
       <call method="allowControllers">
         <argument type="collection">
           <argument>App\Kernel</argument>
+          <argument>App\Controller\CowController</argument>
           <argument>App\Controller\FarmController</argument>
           <argument>App\Controller\VeterinarianController</argument>
           <argument>Doctrine\Bundle\DoctrineBundle\Controller\ProfilerController</argument>
@@ -4289,7 +4322,7 @@
     <service id="doctrine.orm.default_entity_manager.event_manager" alias="doctrine.dbal.default_connection.event_manager"/>
     <service id="doctrine.migrations.metadata_storage" alias="doctrine.migrations.storage.table_storage"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.22UJl5g"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.JXoFkwp"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>
     <service id=".service_locator.FcIjeic" alias=".service_locator.JuRh477"/>
@@ -4298,6 +4331,7 @@
     <service id="argument_resolver" alias="debug.argument_resolver"/>
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
     <service id=".service_locator.n_ENPtW" alias=".service_locator.zHyJIs5"/>
+    <service id=".service_locator.QqmW9CH" alias=".service_locator.riTBY7f"/>
     <service id=".service_locator.xEzED76" alias=".service_locator.lDWHgod"/>
     <service id=".service_locator.HQZddX8" alias=".service_locator.Kq27LHM"/>
     <service id=".service_locator.BvcPQtF" alias=".service_locator.ZyP9f7K"/>

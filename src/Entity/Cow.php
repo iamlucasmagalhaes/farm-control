@@ -147,12 +147,13 @@ class Cow
         return $this->slaughterdate;
     }
 
-    public function setSlaughterdate(\DateTime $slaughterdate): static
+    public function setSlaughterdate(?\DateTime $slaughterdate): static
     {
         $this->slaughterdate = $slaughterdate;
 
         return $this;
     }
+
 
     public function isalive(): ?bool
     {

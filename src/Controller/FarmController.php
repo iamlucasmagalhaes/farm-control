@@ -27,13 +27,13 @@
 
             $msg = "";
 
-                try{
-                    $em->persist($farm);
-                    $em->flush();
-                    $msg = "Fazenda cadastrada com sucesso";
-                } catch (Exception $e){
-                    $msg = "Erro ao cadastrar fazenda";
-                }
-                return new Response("<h1> $msg </h1>");
+            try{
+                $em->persist($farm);
+                $em->flush();
+                $msg = "Fazenda cadastrada com sucesso";
+            } catch (Exception $e){
+                $msg = "Erro ao cadastrar fazenda";
+            }
+            return new Response("<h1> $msg </h1>");
         }
     }
