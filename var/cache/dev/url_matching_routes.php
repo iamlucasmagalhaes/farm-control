@@ -11,6 +11,7 @@ return [
         '/gado' => [[['_route' => 'gado_index', '_controller' => 'App\\Controller\\CowController::index'], null, null, null, false, false, null]],
         '/fazenda' => [[['_route' => 'farm_index', '_controller' => 'App\\Controller\\FarmController::index'], null, null, null, false, false, null]],
         '/veterinario' => [[['_route' => 'veterinarian_index', '_controller' => 'App\\Controller\\VeterinarianController::index'], null, null, null, false, false, null]],
+        '/veterinario/adicionar' => [[['_route' => 'veterinarian_adicionar', '_controller' => 'App\\Controller\\VeterinarianController::addVeterinarian'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'

@@ -3,6 +3,7 @@
     namespace App\Controller;
 
     use App\Entity\Veterinarian;
+    use App\Form\VeterinarianType;
     use Doctrine\DBAL\Exception;
     use Doctrine\ORM\EntityManagerInterface;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,5 +28,22 @@
                     $msg = "Erro ao cadastrar veterinário";
                 }
                 return new Response("<h1> $msg </h1>");
+            }
+
+
+            #[Route('/veterinario/adicionar', name: 'veterinarian_adicionar')]
+            public function addVeterinarian() : Response
+            {
+                $form = $this->createForm(VeterinarianType::class);
+                $data = [
+                            'title' => 'Adicionar Veterinário',
+                            'form'  => $form,
+                ];
+
+                return $this->render('veterinarian/form.html.twig', [
+                    'title' => 'Adicionar Veterinário',
+                    'form' => $form->createView()
+                ]);
+
             }
     }

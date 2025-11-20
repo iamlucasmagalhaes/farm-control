@@ -4,4 +4,12 @@
 
 return [
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], [], []],
+    'gado_index' => [[], ['_controller' => 'App\\Controller\\CowController::index'], [], [['text', '/gado']], [], [], []],
+    'farm_index' => [[], ['_controller' => 'App\\Controller\\FarmController::index'], [], [['text', '/fazenda']], [], [], []],
+    'veterinarian_index' => [[], ['_controller' => 'App\\Controller\\VeterinarianController::index'], [], [['text', '/veterinario']], [], [], []],
+    'veterinarian_adicionar' => [[], ['_controller' => 'App\\Controller\\VeterinarianController::addVeterinarian'], [], [['text', '/veterinario/adicionar']], [], [], []],
+    'App\Controller\CowController::index' => [[], ['_controller' => 'App\\Controller\\CowController::index'], [], [['text', '/gado']], [], [], []],
+    'App\Controller\FarmController::index' => [[], ['_controller' => 'App\\Controller\\FarmController::index'], [], [['text', '/fazenda']], [], [], []],
+    'App\Controller\VeterinarianController::index' => [[], ['_controller' => 'App\\Controller\\VeterinarianController::index'], [], [['text', '/veterinario']], [], [], []],
+    'App\Controller\VeterinarianController::addVeterinarian' => [[], ['_controller' => 'App\\Controller\\VeterinarianController::addVeterinarian'], [], [['text', '/veterinario/adicionar']], [], [], []],
 ];
