@@ -3,6 +3,7 @@
     namespace App\Controller;
 
     use App\Entity\Farm;
+    use App\Form\FarmType;
     use Doctrine\DBAL\Exception;
     use App\Repository\VeterinarianRepository;
     use Doctrine\ORM\EntityManagerInterface;
@@ -36,4 +37,15 @@
             }
             return new Response("<h1> $msg </h1>");
         }
+
+         #[Route('/fazenda/adicionar', name: 'farm_add')]
+         public function addFarm() : Response{
+            $form = $this->createForm(FarmType::class);
+            $data = [
+                        'title' => 'Adicionar Fazenda',
+                        'form' => $form,
+            ];
+
+            return $this->render('farm/form.html.twig', $data);
+         }
     }

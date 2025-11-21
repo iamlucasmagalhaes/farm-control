@@ -31,7 +31,7 @@
             }
 
 
-            #[Route('/veterinario/adicionar', name: 'veterinarian_adicionar')]
+            #[Route('/veterinario/adicionar', name: 'veterinarian_add')]
             public function addVeterinarian() : Response
             {
                 $form = $this->createForm(VeterinarianType::class);
@@ -40,10 +40,6 @@
                             'form'  => $form,
                 ];
 
-                return $this->render('veterinarian/form.html.twig', [
-                    'title' => 'Adicionar Veterinário',
-                    'form' => $form->createView()
-                ]);
-
+                return $this->render('veterinarian/form.html.twig', $data);
             }
     }
