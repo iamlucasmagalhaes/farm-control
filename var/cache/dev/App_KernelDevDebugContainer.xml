@@ -212,6 +212,9 @@
       <tag name="container.excluded" source="because it's a Doctrine entity"/>
       <tag name="container.excluded" source="with #[Doctrine\ORM\Mapping\Entity] attribute"/>
     </service>
+    <service id="App\Form\CowType" class="App\Form\CowType" autowire="true" autoconfigure="true">
+      <tag name="form.type" csrf_token_id="%.form.type_extension.csrf.token_id%"/>
+    </service>
     <service id="App\Form\FarmType" class="App\Form\FarmType" autowire="true" autoconfigure="true">
       <tag name="form.type" csrf_token_id="%.form.type_extension.csrf.token_id%"/>
     </service>
@@ -814,6 +817,7 @@
         <argument>Symfony\Bridge\Doctrine\Form\Type</argument>
       </argument>
       <argument type="collection">
+        <argument>App\Form\CowType</argument>
         <argument>App\Form\FarmType</argument>
         <argument>App\Form\VeterinarianType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
@@ -1744,7 +1748,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.YgVYFeB"/>
+      <argument type="service" id=".service_locator.hKTEoML"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -3328,6 +3332,8 @@
     <service id=".abstract.instanceof.App\Entity\Farm" class="App\Entity\Farm" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.App\Entity\Veterinarian.0.App\Entity\Veterinarian" class="App\Entity\Veterinarian" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Entity\Veterinarian" class="App\Entity\Veterinarian" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CowType" class="App\Form\CowType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\CowType" class="App\Form\CowType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\FarmType" class="App\Form\FarmType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\FarmType" class="App\Form\FarmType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\VeterinarianType" class="App\Form\VeterinarianType" autowire="true" abstract="true"/>
@@ -3897,9 +3903,10 @@
       <argument type="service" id="argument_resolver.query_parameter_value_resolver"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.YgVYFeB" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.hKTEoML" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Form\CowType" type="service_closure" id="App\Form\CowType"/>
         <argument key="App\Form\FarmType" type="service_closure" id="App\Form\FarmType"/>
         <argument key="App\Form\VeterinarianType" type="service_closure" id="App\Form\VeterinarianType"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="service_closure" id="form.type.form"/>

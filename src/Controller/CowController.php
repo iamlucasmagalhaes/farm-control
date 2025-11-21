@@ -3,7 +3,8 @@
     namespace App\Controller;
 
     use App\Entity\Cow;
-    use Doctrine\DBAL\Exception;
+use App\Form\CowType;
+use Doctrine\DBAL\Exception;
     use App\Repository\FarmRepository;
     use Doctrine\ORM\EntityManagerInterface;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,4 +44,15 @@
             }
             return new Response("<h1> $msg </h1>");
         }
+
+        #[Route('/gado/adicionar', name: 'gado_add')]
+        public function addCow() : Response{
+            $form = $this->createForm(CowType::class);
+            $data = [
+                    'title' => 'Adicionar gado',
+                    'form' => $form,
+            ];
+
+            return $this->render('cow/form.html.twig', $data);
+        } 
     }
