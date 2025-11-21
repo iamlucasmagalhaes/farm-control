@@ -13,7 +13,7 @@ use Doctrine\DBAL\Exception;
 
     class CowController extends AbstractController{
         
-        #[Route('/gado', name: 'gado_index')]
+        #[Route('/gado', name: 'cow_index')]
         public function index(EntityManagerInterface $em, FarmRepository $farmRepository) : Response{
             $farm = $farmRepository->findOneBy([
                 'name' => 'Recanto da Lua'
@@ -45,7 +45,7 @@ use Doctrine\DBAL\Exception;
             return new Response("<h1> $msg </h1>");
         }
 
-        #[Route('/gado/adicionar', name: 'gado_add')]
+        #[Route('/gado/adicionar', name: 'cow_add')]
         public function addCow() : Response{
             $form = $this->createForm(CowType::class);
             $data = [
