@@ -70,7 +70,7 @@
                     <td>{{ cow.updatedat|date('d/m/Y') }}</td>
 
                     <td>
-                        <a href="#" class="btn btn-primary btn-sm">Editar</a>
+                        <a href="{{ path('cow_edit', {id: cow.id}) }}" class="btn btn-primary btn-sm">Editar</a>
                         <a href="#" class="btn btn-danger btn-sm">Excluir</a>
                     </td>
                 </tr>

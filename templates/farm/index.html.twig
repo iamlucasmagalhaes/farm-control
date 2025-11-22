@@ -40,8 +40,8 @@
                         {% endif %}
                     </td>
                     <td class="text-center">
-                        <a href="#" class="btn btn-sm btn-primary">Editar</a>
-                        <a href="#" class="btn btn-sm btn-danger">Excluir</a>
+                        <a href="{{ path('farm_edit', {id: farm.id}) }}" class="btn btn-sm btn-primary">Editar</a>
+                        <a href="{{ path('farm_remove', {id: farm.id}) }}" class="btn btn-sm btn-danger">Excluir</a>
                     </td>
                 </tr>
             {% endfor %}

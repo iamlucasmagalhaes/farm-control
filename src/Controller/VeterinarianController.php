@@ -47,4 +47,36 @@
 
                 return $this->render('veterinarian/form.html.twig', $data);
             }
+
+            #[Route('/veterinario/editar/{id}', name: 'veterinarian_edit')]
+            public function editVeterinarian($id, Request $request, EntityManagerInterface $em, VeterinarianRepository $veterinarianRepository) : Response
+            {
+                $msg = '';
+                $veterinarian = $veterinarianRepository->find($id);
+                $form = $this->createForm(VeterinarianType::class, $veterinarian);
+                $form->handleRequest($request);
+
+                if($form->isSubmitted() && $form->isValid()){
+                    $em->flush();
+                    $msg = 'Veterinário Atualizado com sucesso!';
+                }
+
+                $data = [
+                            'title' => 'Editar Veterinário',
+                            'form'  => $form,
+                            'msg' => $msg,
+                ];
+
+                return $this->render('veterinarian/form.html.twig', $data);
+            }
+
+            #[Route('/veterinario/apagar/{id}', name: 'veterinarian_remove')]
+            public function removeVeterinarian($id, EntityManagerInterface $em, VeterinarianRepository $veterinarianRepository) : Response
+            {
+                $veterinarian = $veterinarianRepository->find($id);
+                $em->remove($veterinarian);
+                $em->flush();
+
+                return $this->redirectToRoute('veterinarian_index');
+            }
     }

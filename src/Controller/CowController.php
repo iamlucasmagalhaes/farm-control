@@ -46,4 +46,36 @@
 
             return $this->render('cow/form.html.twig', $data);
         }
+
+        #[Route('/gado/editar/{id}', name: 'cow_edit')]
+        public function editCow($id, Request $request, EntityManagerInterface $em, CowRepository $cowRepository) : Response
+        {
+            $msg = '';
+            $cow = $cowRepository->find($id);
+            $form = $this->createForm(CowType::class, $cow);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $em->flush();
+                $msg = 'Gado Atualizado com sucesso!';
+            }
+
+            $data = [
+                        'title' => 'Editar Gado',
+                        'form'  => $form,
+                        'msg' => $msg,
+            ];
+
+            return $this->render('cow/form.html.twig', $data);
+        }
+
+        #[Route('/gado/editar/{id}', name: 'cow_edit')]
+        public function removeCow($id, EntityManagerInterface $em, CowRepository $cowRepository) : Response
+        {
+            $cow = $cowRepository->find($id);
+            $em->remove($cow);
+            $em->flush();
+
+            return $this->redirectToRoute('cow_index');
+        }
     }
