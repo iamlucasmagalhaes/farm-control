@@ -5,9 +5,7 @@ namespace App\Entity;
 use App\Repository\CowRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-// // Importa as classes de validação do Symfony, permitindo usar o atributo Assert\LessThanOrEqual
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 #[ORM\Entity(repositoryClass: CowRepository::class)]
 class Cow
@@ -29,7 +27,7 @@ class Cow
     #[ORM\Column]
     private ?float $weight = null;
 
-    // Validação que impede salvar datas futuras (birthdate deve ser menor ou igual ao dia atual)
+    // Validação: data não pode ser futura
     #[Assert\LessThanOrEqual("today", message: "A data de nascimento não pode ser futura.")]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $birthdate = null;
@@ -53,6 +51,16 @@ class Cow
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $updatedat = null;
 
+    public function __construct()
+    {
+        $this->createdat = new \DateTime();
+        $this->updatedat = new \DateTime();
+        $this->isalive = true;         // animal nasce vivo por padrão
+        $this->isslaughtered = false;  // não abatido por padrão
+    }
+
+
+    // Getters e Setters
     public function getId(): ?int
     {
         return $this->id;
@@ -66,7 +74,6 @@ class Cow
     public function setCode(string $code): static
     {
         $this->code = $code;
-
         return $this;
     }
 
@@ -78,7 +85,6 @@ class Cow
     public function setMilkperweek(float $milkperweek): static
     {
         $this->milkperweek = $milkperweek;
-
         return $this;
     }
 
@@ -90,7 +96,6 @@ class Cow
     public function setFoodperweek(float $foodperweek): static
     {
         $this->foodperweek = $foodperweek;
-
         return $this;
     }
 
@@ -102,7 +107,6 @@ class Cow
     public function setWeight(float $weight): static
     {
         $this->weight = $weight;
-
         return $this;
     }
 
@@ -114,7 +118,6 @@ class Cow
     public function setBirthdate(\DateTime $birthdate): static
     {
         $this->birthdate = $birthdate;
-
         return $this;
     }
 
@@ -126,11 +129,10 @@ class Cow
     public function setFarm(?Farm $farm): static
     {
         $this->farm = $farm;
-
         return $this;
     }
 
-    public function isslaughtered(): ?bool
+    public function isSlaughtered(): ?bool
     {
         return $this->isslaughtered;
     }
@@ -138,7 +140,6 @@ class Cow
     public function setIsslaughtered(bool $isslaughtered): static
     {
         $this->isslaughtered = $isslaughtered;
-
         return $this;
     }
 
@@ -150,12 +151,10 @@ class Cow
     public function setSlaughterdate(?\DateTime $slaughterdate): static
     {
         $this->slaughterdate = $slaughterdate;
-
         return $this;
     }
 
-
-    public function isalive(): ?bool
+    public function isAlive(): ?bool
     {
         return $this->isalive;
     }
@@ -163,7 +162,6 @@ class Cow
     public function setIsalive(bool $isalive): static
     {
         $this->isalive = $isalive;
-
         return $this;
     }
 
@@ -175,7 +173,6 @@ class Cow
     public function setCreatedat(\DateTime $createdat): static
     {
         $this->createdat = $createdat;
-
         return $this;
     }
 
@@ -187,7 +184,6 @@ class Cow
     public function setUpdatedat(\DateTime $updatedat): static
     {
         $this->updatedat = $updatedat;
-
         return $this;
     }
 }

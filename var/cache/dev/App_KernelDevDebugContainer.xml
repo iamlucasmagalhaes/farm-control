@@ -257,7 +257,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.JXoFkwp"/>
+      <argument type="service" id=".service_locator.2OkPwJ2"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1422,7 +1422,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.JXoFkwp"/>
+      <argument type="service" id=".service_locator.2OkPwJ2"/>
     </service>
     <service id="routing.resolver" class="Symfony\Component\Config\Loader\LoaderResolver">
       <call method="addLoader">
@@ -3781,31 +3781,17 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.zHyJIs5" method="withContext"/>
     </service>
-    <service id=".service_locator.riTBY7f" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.teflrFp" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
-        <argument key="farmRepository" type="service_closure" id="App\Repository\FarmRepository"/>
+        <argument key="cowRepository" type="service_closure" id="App\Repository\CowRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.riTBY7f.App\Controller\CowController::index()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.teflrFp.App\Controller\CowController::index()" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\CowController::index()"/>
       <argument>App\Controller\CowController::index()</argument>
       <argument type="service" id="service_container"/>
-      <factory service=".service_locator.riTBY7f" method="withContext"/>
-    </service>
-    <service id=".service_locator.lDWHgod" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
-        <argument key="veterinarianRepository" type="service_closure" id="App\Repository\VeterinarianRepository"/>
-      </argument>
-    </service>
-    <service id=".service_locator.lDWHgod.App\Controller\FarmController::index()" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\FarmController::index()"/>
-      <argument>App\Controller\FarmController::index()</argument>
-      <argument type="service" id="service_container"/>
-      <factory service=".service_locator.lDWHgod" method="withContext"/>
+      <factory service=".service_locator.teflrFp" method="withContext"/>
     </service>
     <service id=".service_locator.Kq27LHM" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
@@ -3813,27 +3799,69 @@
         <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
-    <service id=".service_locator.Kq27LHM.App\Controller\VeterinarianController::index()" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\VeterinarianController::index()"/>
-      <argument>App\Controller\VeterinarianController::index()</argument>
+    <service id=".service_locator.Kq27LHM.App\Controller\CowController::addCow()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\CowController::addCow()"/>
+      <argument>App\Controller\CowController::addCow()</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.Kq27LHM" method="withContext"/>
     </service>
-    <service id=".service_locator.JXoFkwp" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.n1.WTgi" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="farmRepository" type="service_closure" id="App\Repository\FarmRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.n1.WTgi.App\Controller\FarmController::index()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\FarmController::index()"/>
+      <argument>App\Controller\FarmController::index()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.n1.WTgi" method="withContext"/>
+    </service>
+    <service id=".service_locator.Kq27LHM.App\Controller\FarmController::addFarm()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\FarmController::addFarm()"/>
+      <argument>App\Controller\FarmController::addFarm()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.Kq27LHM" method="withContext"/>
+    </service>
+    <service id=".service_locator.Jiq8tTe" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="veterinarianRepository" type="service_closure" id="App\Repository\VeterinarianRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.Jiq8tTe.App\Controller\VeterinarianController::index()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\VeterinarianController::index()"/>
+      <argument>App\Controller\VeterinarianController::index()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.Jiq8tTe" method="withContext"/>
+    </service>
+    <service id=".service_locator.Kq27LHM.App\Controller\VeterinarianController::addVeterinarian()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\VeterinarianController::addVeterinarian()"/>
+      <argument>App\Controller\VeterinarianController::addVeterinarian()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.Kq27LHM" method="withContext"/>
+    </service>
+    <service id=".service_locator.2OkPwJ2" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
-        <argument key="App\Controller\CowController::index" type="service_closure" id=".service_locator.riTBY7f.App\Controller\CowController::index()"/>
-        <argument key="App\Controller\FarmController::index" type="service_closure" id=".service_locator.lDWHgod.App\Controller\FarmController::index()"/>
-        <argument key="App\Controller\VeterinarianController::index" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\VeterinarianController::index()"/>
+        <argument key="App\Controller\CowController::index" type="service_closure" id=".service_locator.teflrFp.App\Controller\CowController::index()"/>
+        <argument key="App\Controller\CowController::addCow" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\CowController::addCow()"/>
+        <argument key="App\Controller\FarmController::index" type="service_closure" id=".service_locator.n1.WTgi.App\Controller\FarmController::index()"/>
+        <argument key="App\Controller\FarmController::addFarm" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\FarmController::addFarm()"/>
+        <argument key="App\Controller\VeterinarianController::index" type="service_closure" id=".service_locator.Jiq8tTe.App\Controller\VeterinarianController::index()"/>
+        <argument key="App\Controller\VeterinarianController::addVeterinarian" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\VeterinarianController::addVeterinarian()"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
-        <argument key="App\Controller\CowController:index" type="service_closure" id=".service_locator.riTBY7f.App\Controller\CowController::index()"/>
-        <argument key="App\Controller\FarmController:index" type="service_closure" id=".service_locator.lDWHgod.App\Controller\FarmController::index()"/>
-        <argument key="App\Controller\VeterinarianController:index" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\VeterinarianController::index()"/>
+        <argument key="App\Controller\CowController:index" type="service_closure" id=".service_locator.teflrFp.App\Controller\CowController::index()"/>
+        <argument key="App\Controller\CowController:addCow" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\CowController::addCow()"/>
+        <argument key="App\Controller\FarmController:index" type="service_closure" id=".service_locator.n1.WTgi.App\Controller\FarmController::index()"/>
+        <argument key="App\Controller\FarmController:addFarm" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\FarmController::addFarm()"/>
+        <argument key="App\Controller\VeterinarianController:index" type="service_closure" id=".service_locator.Jiq8tTe.App\Controller\VeterinarianController::index()"/>
+        <argument key="App\Controller\VeterinarianController:addVeterinarian" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\VeterinarianController::addVeterinarian()"/>
       </argument>
     </service>
     <service id=".service_locator.3DbmXsc" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -4926,7 +4954,7 @@
     <service id="Twig\Environment" alias="twig"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.JXoFkwp"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.2OkPwJ2"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>
@@ -4937,9 +4965,10 @@
     <service id="twig.error_renderer.html.inner" alias="error_handler.error_renderer.html"/>
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
     <service id=".service_locator.n_ENPtW" alias=".service_locator.zHyJIs5"/>
-    <service id=".service_locator.QqmW9CH" alias=".service_locator.riTBY7f"/>
-    <service id=".service_locator.xEzED76" alias=".service_locator.lDWHgod"/>
+    <service id=".service_locator.RKuYIES" alias=".service_locator.teflrFp"/>
     <service id=".service_locator.HQZddX8" alias=".service_locator.Kq27LHM"/>
+    <service id=".service_locator.bOE4b7l" alias=".service_locator.n1.WTgi"/>
+    <service id=".service_locator.HfABXM5" alias=".service_locator.Jiq8tTe"/>
     <service id=".service_locator.Yg4vxzj" alias=".service_locator.ZyP9f7K"/>
   </services>
 </container>

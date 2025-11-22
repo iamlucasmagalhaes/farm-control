@@ -4,40 +4,45 @@
 
     use App\Entity\Veterinarian;
     use App\Form\VeterinarianType;
-    use Doctrine\DBAL\Exception;
+    use App\Repository\VeterinarianRepository;
     use Doctrine\ORM\EntityManagerInterface;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+    use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\Routing\Attribute\Route;
 
     class VeterinarianController extends AbstractController{
 
             #[Route('/veterinario', name: 'veterinarian_index')]
-            public function index(EntityManagerInterface $em): Response
+            public function index(VeterinarianRepository $veterinarianRepository): Response
             {
-                $veterinarian = new Veterinarian();
-                $veterinarian->setName("Lucas");
-                $veterinarian->setCrmv("1");
-                $msg = "";
+                $data = [
+                            'title' => 'Gerenciar Veterinários',
+                            'veterinarians' => $veterinarianRepository->findAll()
+                ];
 
-                try{
-                    $em->persist($veterinarian);
-                    $em->flush();
-                    $msg = "Veterinário cadastrado com sucesso";
-                } catch (Exception $e){
-                    $msg = "Erro ao cadastrar veterinário";
-                }
-                return new Response("<h1> $msg </h1>");
+                return $this->render('veterinarian/index.html.twig', $data);
             }
 
 
             #[Route('/veterinario/adicionar', name: 'veterinarian_add')]
-            public function addVeterinarian() : Response
+            public function addVeterinarian(Request $request, EntityManagerInterface $em) : Response
             {
-                $form = $this->createForm(VeterinarianType::class);
+                $msg = '';
+                $veterinarian = new Veterinarian;
+                $form = $this->createForm(VeterinarianType::class, $veterinarian);
+                $form->handleRequest($request);
+
+                if($form->isSubmitted() && $form->isValid()){
+                    $em->persist($veterinarian);
+                    $em->flush();
+                    $msg = 'Profissional adicionado com sucesso!';
+                }
+
                 $data = [
                             'title' => 'Adicionar Veterinário',
                             'form'  => $form,
+                            'msg' => $msg,
                 ];
 
                 return $this->render('veterinarian/form.html.twig', $data);

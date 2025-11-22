@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0">{{ title }}</h1>
+        <a href="{{ path('veterinarian_add') }}" class="btn btn-success">Cadastrar Veterinário</a>
+    </div>
+
+    <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>CRMV</th>
+                <th>Nome</th>
+                <th class="text-center">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vet in veterinarians %}
+                <tr>
+                    <td>{{ vet.id }}</td>
+                    <td>{{ vet.crmv }}</td>
+                    <td>{{ vet.name }}</td>
+                    <td class="text-center">
+                        <a href="#" class="btn btn-sm btn-primary">Editar</a>
+                        <a href="#" class="btn btn-sm btn-danger">Excluir</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
