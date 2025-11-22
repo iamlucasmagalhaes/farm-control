@@ -27,21 +27,27 @@
         #[Route('/gado/adicionar', name: 'cow_add')]
         public function addCow(Request $request, EntityManagerInterface $em) : Response
         {
-            $msg = '';
             $cow = new Cow;
             $form = $this->createForm(CowType::class, $cow);
             $form->handleRequest($request);
 
             if($form->isSubmitted() && $form->isValid()){
-                $em->persist($cow);
-                $em->flush();
-                $msg ='Gado adicionado com sucesso!';
+                try {
+                    $em->persist($cow);
+                    $em->flush();
+
+                    $this->addFlash('success', 'Gado adicionado com sucesso!');
+                    return $this->redirectToRoute('cow_index');
+
+                } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
+                    $this->addFlash('danger', 'Erro: já existe um gado com este código.');
+                }
+
             }
 
             $data = [
                         'title' => 'Adicionar Gado',
-                        'form'  => $form,
-                        'msg' => $msg,
+                        'form'  => $form
             ];
 
             return $this->render('cow/form.html.twig', $data);
@@ -50,32 +56,45 @@
         #[Route('/gado/editar/{id}', name: 'cow_edit')]
         public function editCow($id, Request $request, EntityManagerInterface $em, CowRepository $cowRepository) : Response
         {
-            $msg = '';
             $cow = $cowRepository->find($id);
             $form = $this->createForm(CowType::class, $cow);
             $form->handleRequest($request);
 
             if($form->isSubmitted() && $form->isValid()){
-                $em->flush();
-                $msg = 'Gado Atualizado com sucesso!';
+                try {
+                    $em->flush();
+                    $this->addFlash('success', 'Gado atualizado com sucesso!');
+                    return $this->redirectToRoute('cow_index');
+
+                } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
+                    $this->addFlash('danger', 'Erro: já existe um gado com este código.');
+                }
+
             }
 
             $data = [
                         'title' => 'Editar Gado',
-                        'form'  => $form,
-                        'msg' => $msg,
+                        'form'  => $form
             ];
 
             return $this->render('cow/form.html.twig', $data);
         }
 
-        #[Route('/gado/editar/{id}', name: 'cow_edit')]
-        public function removeCow($id, EntityManagerInterface $em, CowRepository $cowRepository) : Response
+        #[Route('/gado/apagar/{id}', name: 'cow_remove')]
+        public function removeCow($id, EntityManagerInterface $em, CowRepository $cowRepository): Response
         {
             $cow = $cowRepository->find($id);
-            $em->remove($cow);
-            $em->flush();
+
+            try {
+                $em->remove($cow);
+                $em->flush();
+
+                $this->addFlash('success', 'Gado removido com sucesso!');
+            } catch (\Exception $e) {
+                $this->addFlash('danger', 'Erro ao remover o gado.');
+            }
 
             return $this->redirectToRoute('cow_index');
         }
+
     }

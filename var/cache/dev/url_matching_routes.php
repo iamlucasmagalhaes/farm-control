@@ -18,24 +18,28 @@ return [
     [ // $regexpList
         0 => '{^(?'
                 .'|/_error/(\\d+)(?:\\.([^/]++))?(*:35)'
-                .'|/gado/editar/([^/]++)(*:63)'
+                .'|/gado/(?'
+                    .'|editar/([^/]++)(*:66)'
+                    .'|apagar/([^/]++)(*:88)'
+                .')'
                 .'|/fazenda/(?'
-                    .'|editar/([^/]++)(*:97)'
-                    .'|apagar/([^/]++)(*:119)'
+                    .'|editar/([^/]++)(*:123)'
+                    .'|apagar/([^/]++)(*:146)'
                 .')'
                 .'|/veterinario/(?'
-                    .'|editar/([^/]++)(*:159)'
-                    .'|apagar/([^/]++)(*:182)'
+                    .'|editar/([^/]++)(*:186)'
+                    .'|apagar/([^/]++)(*:209)'
                 .')'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
         35 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
-        63 => [[['_route' => 'cow_edit', '_controller' => 'App\\Controller\\CowController::editCow'], ['id'], null, null, false, true, null]],
-        97 => [[['_route' => 'farm_edit', '_controller' => 'App\\Controller\\FarmController::editFarm'], ['id'], null, null, false, true, null]],
-        119 => [[['_route' => 'farm_remove', '_controller' => 'App\\Controller\\FarmController::removeFarm'], ['id'], null, null, false, true, null]],
-        159 => [[['_route' => 'veterinarian_edit', '_controller' => 'App\\Controller\\VeterinarianController::editVeterinarian'], ['id'], null, null, false, true, null]],
-        182 => [
+        66 => [[['_route' => 'cow_edit', '_controller' => 'App\\Controller\\CowController::editCow'], ['id'], null, null, false, true, null]],
+        88 => [[['_route' => 'cow_remove', '_controller' => 'App\\Controller\\CowController::removeCow'], ['id'], null, null, false, true, null]],
+        123 => [[['_route' => 'farm_edit', '_controller' => 'App\\Controller\\FarmController::editFarm'], ['id'], null, null, false, true, null]],
+        146 => [[['_route' => 'farm_remove', '_controller' => 'App\\Controller\\FarmController::removeFarm'], ['id'], null, null, false, true, null]],
+        186 => [[['_route' => 'veterinarian_edit', '_controller' => 'App\\Controller\\VeterinarianController::editVeterinarian'], ['id'], null, null, false, true, null]],
+        209 => [
             [['_route' => 'veterinarian_remove', '_controller' => 'App\\Controller\\VeterinarianController::removeVeterinarian'], ['id'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

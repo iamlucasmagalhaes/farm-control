@@ -71,7 +71,8 @@
 
                     <td>
                         <a href="{{ path('cow_edit', {id: cow.id}) }}" class="btn btn-primary btn-sm">Editar</a>
-                        <a href="#" class="btn btn-danger btn-sm">Excluir</a>
+                        <a href="{{ path('cow_remove', {id: cow.id}) }}" class="btn btn-danger btn-sm">Excluir</a>
+
                     </td>
                 </tr>
 

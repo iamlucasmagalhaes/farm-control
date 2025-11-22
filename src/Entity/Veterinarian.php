@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use App\Repository\VeterinarianRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+#[UniqueEntity(fields: ['crmv'], message: 'Já existe um veterinário com este CRMV.')]
 #[ORM\Entity(repositoryClass: VeterinarianRepository::class)]
 class Veterinarian
 {

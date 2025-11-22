@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use App\Repository\CowRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[UniqueEntity(fields: ['code'], message: 'Já existe uma vaca com este código.')]
 #[ORM\Entity(repositoryClass: CowRepository::class)]
 class Cow
 {

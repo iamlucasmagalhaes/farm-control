@@ -257,7 +257,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.DxrmDpb"/>
+      <argument type="service" id=".service_locator.L.A4yCJ"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1422,7 +1422,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.DxrmDpb"/>
+      <argument type="service" id=".service_locator.L.A4yCJ"/>
     </service>
     <service id="routing.resolver" class="Symfony\Component\Config\Loader\LoaderResolver">
       <call method="addLoader">
@@ -3818,6 +3818,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.SndcN5k" method="withContext"/>
     </service>
+    <service id=".service_locator.SndcN5k.App\Controller\CowController::removeCow()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\CowController::removeCow()"/>
+      <argument>App\Controller\CowController::removeCow()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.SndcN5k" method="withContext"/>
+    </service>
     <service id=".service_locator.n1.WTgi" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -3892,7 +3898,7 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.lDWHgod" method="withContext"/>
     </service>
-    <service id=".service_locator.DxrmDpb" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.L.A4yCJ" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
@@ -3902,6 +3908,7 @@
         <argument key="App\Controller\CowController::index" type="service_closure" id=".service_locator.teflrFp.App\Controller\CowController::index()"/>
         <argument key="App\Controller\CowController::addCow" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\CowController::addCow()"/>
         <argument key="App\Controller\CowController::editCow" type="service_closure" id=".service_locator.SndcN5k.App\Controller\CowController::editCow()"/>
+        <argument key="App\Controller\CowController::removeCow" type="service_closure" id=".service_locator.SndcN5k.App\Controller\CowController::removeCow()"/>
         <argument key="App\Controller\FarmController::index" type="service_closure" id=".service_locator.n1.WTgi.App\Controller\FarmController::index()"/>
         <argument key="App\Controller\FarmController::addFarm" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\FarmController::addFarm()"/>
         <argument key="App\Controller\FarmController::editFarm" type="service_closure" id=".service_locator.riTBY7f.App\Controller\FarmController::editFarm()"/>
@@ -3915,6 +3922,7 @@
         <argument key="App\Controller\CowController:index" type="service_closure" id=".service_locator.teflrFp.App\Controller\CowController::index()"/>
         <argument key="App\Controller\CowController:addCow" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\CowController::addCow()"/>
         <argument key="App\Controller\CowController:editCow" type="service_closure" id=".service_locator.SndcN5k.App\Controller\CowController::editCow()"/>
+        <argument key="App\Controller\CowController:removeCow" type="service_closure" id=".service_locator.SndcN5k.App\Controller\CowController::removeCow()"/>
         <argument key="App\Controller\FarmController:index" type="service_closure" id=".service_locator.n1.WTgi.App\Controller\FarmController::index()"/>
         <argument key="App\Controller\FarmController:addFarm" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\FarmController::addFarm()"/>
         <argument key="App\Controller\FarmController:editFarm" type="service_closure" id=".service_locator.riTBY7f.App\Controller\FarmController::editFarm()"/>
@@ -5015,7 +5023,7 @@
     <service id="Twig\Environment" alias="twig"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.DxrmDpb"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.L.A4yCJ"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>
