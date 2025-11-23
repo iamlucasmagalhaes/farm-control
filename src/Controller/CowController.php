@@ -25,13 +25,22 @@
         }
 
         #[Route('/gado/adicionar', name: 'cow_add')]
-        public function addCow(Request $request, EntityManagerInterface $em, CowRepository $cowRepository) : Response
+        public function addCow(Request $request, EntityManagerInterface $em, CowRepository $cowRepository): Response
         {
             $cow = new Cow;
             $form = $this->createForm(CowType::class, $cow);
             $form->handleRequest($request);
 
-            if($form->isSubmitted() && $form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $farm = $cow->getFarm();
+                $maxAnimals = $farm->getSize() * 18;
+                $currentAnimals = $farm->getCows()->filter(fn($c) => $c->isAlive())->count();
+
+                if ($currentAnimals >= $maxAnimals) {
+                    $this->addFlash('danger', 'Esta fazenda atingiu o limite máximo de animais permitidos.');
+                    return $this->redirectToRoute('cow_add');
+                }
 
                 $existing = $cowRepository->findOneBy([
                     'code' => $cow->getCode(),
@@ -52,42 +61,74 @@
 
                 } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
                     $this->addFlash('danger', 'Erro: já existe um gado com este código.');
-                }
+                }                
             }
 
             return $this->render('cow/form.html.twig', [
                 'title' => 'Adicionar Gado',
-                'form'  => $form
+                'form' => $form
             ]);
         }
 
-
         #[Route('/gado/editar/{id}', name: 'cow_edit')]
-        public function editCow($id, Request $request, EntityManagerInterface $em, CowRepository $cowRepository) : Response
+        public function editCow( $id, Request $request, EntityManagerInterface $em, CowRepository $cowRepository): Response 
         {
             $cow = $cowRepository->find($id);
+
+            if (!$cow) {
+                $this->addFlash('danger', 'Gado não encontrado.');
+                return $this->redirectToRoute('cow_index');
+            }
+
             $form = $this->createForm(CowType::class, $cow);
             $form->handleRequest($request);
 
-            if($form->isSubmitted() && $form->isValid()){
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $farm = $cow->getFarm();
+                $maxAnimals = $farm->getSize() * 18;
+
+                $currentAnimals = $farm->getCows()
+                    ->filter(fn ($c) => $c->isAlive())
+                    ->count();
+
+                if ($cow->isAlive()) {
+                    $currentAnimals--;
+                }
+
+                if ($currentAnimals >= $maxAnimals && $cow->isAlive()) {
+                    $this->addFlash('danger', 'Esta fazenda atingiu o limite máximo de animais permitidos.');
+                    return $this->redirectToRoute('cow_edit', ['id' => $cow->getId()]);
+                }
+
+                $existing = $cowRepository->findOneBy([
+                    'code' => $cow->getCode(),
+                    'isalive' => true
+                ]);
+
+                if ($existing && $existing->getId() !== $cow->getId()) {
+                    $this->addFlash('danger', 'Já existe outro animal vivo com este código.');
+                    return $this->redirectToRoute('cow_edit', ['id' => $cow->getId()]);
+                }
+
                 try {
+                    $cow->setUpdatedat(new \DateTime());
                     $em->flush();
+
                     $this->addFlash('success', 'Gado atualizado com sucesso!');
                     return $this->redirectToRoute('cow_index');
 
                 } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
                     $this->addFlash('danger', 'Erro: já existe um gado com este código.');
                 }
-
             }
 
-            $data = [
-                        'title' => 'Editar Gado',
-                        'form'  => $form
-            ];
-
-            return $this->render('cow/form.html.twig', $data);
+            return $this->render('cow/form.html.twig', [
+                'title' => 'Editar Gado',
+                'form' => $form
+            ]);
         }
+
 
         #[Route('/gado/apagar/{id}', name: 'cow_remove')]
         public function removeCow($id, EntityManagerInterface $em, CowRepository $cowRepository): Response
