@@ -55,17 +55,6 @@
                     'placeholder' => 'Selecione uma fazenda',
                 ])
 
-                ->add('isslaughtered', CheckboxType::class, [
-                    'label' => 'Foi abatido?',
-                    'required' => false,
-                ])
-
-                ->add('slaughterdate', DateType::class, [
-                    'label' => 'Data do abate:',
-                    'widget' => 'single_text',
-                    'html5' => true,
-                    'required' => false,
-                ])
                 ->add('Salvar', SubmitType::class);
         }
     }

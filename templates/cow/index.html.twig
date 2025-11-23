@@ -9,7 +9,9 @@
 
     <h1 class="mb-4">{{ title }}</h1>
 
-    <a href="{{ path('cow_add') }}" class="btn btn-success mb-3">Adicionar Novo Animal</a>
+    <a href="{{ path('cow_add') }}" class="btn btn-success mb-3">
+        Adicionar Novo Animal
+    </a>
 
     <table class="table table-striped table-bordered align-middle">
         <thead class="table-dark">
@@ -17,72 +19,92 @@
                 <th>#</th>
                 <th>Código</th>
                 <th>Fazenda</th>
-                <th>Leite / Semana (L)</th>
-                <th>Alimento / Semana (Kg)</th>
-                <th>Peso (Kg)</th>
+                <th>Leite/semana</th>
+                <th>Ração/semana</th>
+                <th>Peso</th>
                 <th>Nascimento</th>
-                <th>Vivo?</th>
-                <th>Abatido?</th>
-                <th>Data do Abate</th>
-                <th>Criado em</th>
-                <th>Atualizado em</th>
+                <th>Status</th>
+                <th>Abate</th>
                 <th>Ações</th>
             </tr>
         </thead>
+
         <tbody>
-            {% for cow in cows %}
-                <tr>
-                    <td>{{ cow.id }}</td>
-                    <td>{{ cow.code }}</td>
-                    <td>{{ cow.farm.name }}</td>
+        {% for cow in cows %}
 
-                    <td>{{ cow.milkperweek|number_format(2, ',', '.') }}</td>
-                    <td>{{ cow.foodperweek|number_format(2, ',', '.') }}</td>
-                    <td>{{ cow.weight|number_format(2, ',', '.') }}</td>
+            {% set ageYears = date().diff(cow.birthdate).y %}
+            {% set dailyFood = (cow.foodperweek / 7) %}
+            {% set canBeSlaughtered =
+                ageYears > 5
+                or cow.milkperweek < 40
+                or (cow.milkperweek < 70 and dailyFood > 50)
+                or cow.weight > (18 * 15)
+            %}
 
-                    <td>{{ cow.birthdate|date('d/m/Y') }}</td>
+            <tr>
+                <td>{{ cow.id }}</td>
+                <td>{{ cow.code }}</td>
+                <td>{{ cow.farm.name }}</td>
 
-                    <td>
-                        {% if cow.isalive %}
-                            <span class="badge bg-success">Sim</span>
+                <td>{{ cow.milkperweek|number_format(1, ',', '.') }} L</td>
+                <td>{{ cow.foodperweek|number_format(1, ',', '.') }} Kg</td>
+                <td>{{ cow.weight|number_format(1, ',', '.') }} Kg</td>
+
+                <td>{{ cow.birthdate|date('d/m/Y') }}</td>
+
+                <td>
+                    {% if cow.isalive %}
+                        <span class="badge bg-success">Vivo</span>
+                    {% else %}
+                        <span class="badge bg-danger">Morto</span>
+                    {% endif %}
+                </td>
+
+                <td class="text-center">
+
+                    {% if cow.isslaughtered %}
+                        <span class="badge bg-danger">Já Abatido</span><br>
+                        <small class="text-muted">
+                            {{ cow.slaughterdate ? cow.slaughterdate|date('d/m/Y') : '' }}
+                        </small>
+
+                    {% elseif not cow.isalive %}
+                        <span class="badge bg-secondary">Morto (não abatido)</span>
+
+                    {% else %}
+                        {% if canBeSlaughtered %}
+                            <a href="{{ path('cow_slaughter', {id: cow.id}) }}"
+                               class="btn btn-danger btn-sm">
+                                🥩 Abater
+                            </a>
                         {% else %}
-                            <span class="badge bg-danger">Não</span>
+                            <button class="btn btn-secondary btn-sm" disabled>
+                                🥩 Não elegível
+                            </button>
                         {% endif %}
-                    </td>
+                    {% endif %}
+                </td>
 
-                    <td>
-                        {% if cow.isslaughtered %}
-                            <span class="badge bg-danger">Sim</span>
-                        {% else %}
-                            <span class="badge bg-success">Não</span>
-                        {% endif %}
-                    </td>
+                <td>
+                    <a href="{{ path('cow_edit', {id: cow.id}) }}"
+                       class="btn btn-primary btn-sm">
+                        ✏️ Editar
+                    </a>
 
-                    <td>
-                        {% if cow.slaughterdate %}
-                            {{ cow.slaughterdate|date('d/m/Y') }}
-                        {% else %}
-                            <span class="text-muted">—</span>
-                        {% endif %}
-                    </td>
+                    <a href="{{ path('cow_remove', {id: cow.id}) }}"
+                       class="btn btn-danger btn-sm">
+                        🗑️ Excluir
+                    </a>
+                </td>
+            </tr>
 
-                    <td>{{ cow.createdat|date('d/m/Y') }}</td>
-                    <td>{{ cow.updatedat|date('d/m/Y') }}</td>
-
-                    <td>
-                        <a href="{{ path('cow_edit', {id: cow.id}) }}" class="btn btn-primary btn-sm">Editar</a>
-                        <a href="{{ path('cow_remove', {id: cow.id}) }}" class="btn btn-danger btn-sm">Excluir</a>
-
-                    </td>
-                </tr>
-
-            {% else %}
-                <tr>
-                    <td colspan="13" class="text-center text-muted py-3">
-                        Nenhum animal cadastrado.
-                    </td>
-                </tr>
-            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="10" class="text-center text-muted py-3">
+                    Nenhum animal cadastrado.
+                </td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 </div>

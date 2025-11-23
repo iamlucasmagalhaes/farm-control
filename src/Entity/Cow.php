@@ -8,7 +8,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[UniqueEntity(fields: ['code'], message: 'Já existe uma vaca com este código.')]
 #[ORM\Entity(repositoryClass: CowRepository::class)]
 class Cow
 {
@@ -17,7 +16,7 @@ class Cow
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, unique: true)]
+    #[ORM\Column(length: 255)]
     private ?string $code = null;
 
     #[ORM\Column]
@@ -188,4 +187,18 @@ class Cow
         $this->updatedat = $updatedat;
         return $this;
     }
+
+    public function canBeSlaughtered(): bool
+    {
+        $age = $this->getBirthdate()->diff(new \DateTime())->y;
+        $foodPerDay = $this->foodperweek / 7;
+        $weightArroba = $this->weight / 15;
+
+        return
+            $age > 5 ||
+            $this->milkperweek < 40 ||
+            ($this->milkperweek < 70 && $foodPerDay > 50) ||
+            $weightArroba > 18;
+    }
+
 }

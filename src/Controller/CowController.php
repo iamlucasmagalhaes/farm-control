@@ -25,13 +25,24 @@
         }
 
         #[Route('/gado/adicionar', name: 'cow_add')]
-        public function addCow(Request $request, EntityManagerInterface $em) : Response
+        public function addCow(Request $request, EntityManagerInterface $em, CowRepository $cowRepository) : Response
         {
             $cow = new Cow;
             $form = $this->createForm(CowType::class, $cow);
             $form->handleRequest($request);
 
-            if($form->isSubmitted() && $form->isValid()){
+            if($form->isSubmitted() && $form->isValid()) {
+
+                $existing = $cowRepository->findOneBy([
+                    'code' => $cow->getCode(),
+                    'isalive' => true
+                ]);
+
+                if ($existing) {
+                    $this->addFlash('danger', 'Já existe um animal vivo com este código.');
+                    return $this->redirectToRoute('cow_add');
+                }
+
                 try {
                     $em->persist($cow);
                     $em->flush();
@@ -42,16 +53,14 @@
                 } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
                     $this->addFlash('danger', 'Erro: já existe um gado com este código.');
                 }
-
             }
 
-            $data = [
-                        'title' => 'Adicionar Gado',
-                        'form'  => $form
-            ];
-
-            return $this->render('cow/form.html.twig', $data);
+            return $this->render('cow/form.html.twig', [
+                'title' => 'Adicionar Gado',
+                'form'  => $form
+            ]);
         }
+
 
         #[Route('/gado/editar/{id}', name: 'cow_edit')]
         public function editCow($id, Request $request, EntityManagerInterface $em, CowRepository $cowRepository) : Response
@@ -94,6 +103,32 @@
                 $this->addFlash('danger', 'Erro ao remover o gado.');
             }
 
+            return $this->redirectToRoute('cow_index');
+        }
+
+        #[Route('/gado/abater/{id}', name: 'cow_slaughter')]
+        public function slaughter($id, CowRepository $repo, EntityManagerInterface $em)
+        {
+            $cow = $repo->find($id);
+
+            if (!$cow) {
+                $this->addFlash('danger', 'Gado não encontrado.');
+                return $this->redirectToRoute('cow_index');
+            }
+
+            if (!$cow->canBeSlaughtered()) {
+                $this->addFlash('danger', 'Este animal não atende os requisitos para abate.');
+                return $this->redirectToRoute('cow_index');
+            }
+
+            $cow->setIsalive(false);
+            $cow->setIsslaughtered(true);
+            $cow->setSlaughterdate(new \DateTime());
+            $cow->setUpdatedat(new \DateTime());
+
+            $em->flush();
+
+            $this->addFlash('success', 'Animal abatido com sucesso.');
             return $this->redirectToRoute('cow_index');
         }
 
