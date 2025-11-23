@@ -28,10 +28,11 @@ return [
                 .'|/fazenda/(?'
                     .'|editar/([^/]++)(*:149)'
                     .'|apagar/([^/]++)(*:172)'
+                    .'|([^/]++)/reports(*:196)'
                 .')'
                 .'|/veterinario/(?'
-                    .'|editar/([^/]++)(*:212)'
-                    .'|apagar/([^/]++)(*:235)'
+                    .'|editar/([^/]++)(*:236)'
+                    .'|apagar/([^/]++)(*:259)'
                 .')'
             .')/?$}sDu',
     ],
@@ -42,8 +43,9 @@ return [
         112 => [[['_route' => 'cow_slaughter', '_controller' => 'App\\Controller\\CowController::slaughter'], ['id'], null, null, false, true, null]],
         149 => [[['_route' => 'farm_edit', '_controller' => 'App\\Controller\\FarmController::editFarm'], ['id'], null, null, false, true, null]],
         172 => [[['_route' => 'farm_remove', '_controller' => 'App\\Controller\\FarmController::removeFarm'], ['id'], null, null, false, true, null]],
-        212 => [[['_route' => 'veterinarian_edit', '_controller' => 'App\\Controller\\VeterinarianController::editVeterinarian'], ['id'], null, null, false, true, null]],
-        235 => [
+        196 => [[['_route' => 'farm_reports', '_controller' => 'App\\Controller\\ReportController::farmReports'], ['id'], null, null, false, false, null]],
+        236 => [[['_route' => 'veterinarian_edit', '_controller' => 'App\\Controller\\VeterinarianController::editVeterinarian'], ['id'], null, null, false, true, null]],
+        259 => [
             [['_route' => 'veterinarian_remove', '_controller' => 'App\\Controller\\VeterinarianController::removeVeterinarian'], ['id'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

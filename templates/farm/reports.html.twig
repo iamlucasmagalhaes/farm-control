@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Relatórios da Fazenda{% endblock %}
+
+{% block body %}
+<h1>Relatórios da Fazenda</h1>
+
+<h2>Animais Abatidos</h2>
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Código</th>
+            <th>Fazenda</th>
+            <th>Data de Abate</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cow in slaughteredCows %}
+            <tr>
+                <td>{{ cow.code ?? 'Sem código' }}</td>
+                <td>
+                    {% if cow.farm %}
+                        {{ cow.farm.name }}
+                    {% else %}
+                        Sem fazenda
+                    {% endif %}
+                </td>
+                <td>
+                    {% if cow.slaughterdate %}
+                        {{ cow.slaughterdate|date('d/m/Y') }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3" class="text-center">Nenhum animal abatido.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Produção de Leite</h2>
+<p>{{ totalMilk }} litros/semana</p>
+
+<h2>Consumo de Ração</h2>
+<p>{{ totalFeed }} Kg/semana</p>
+
+<h2>Animais até 1 ano consumindo > 500Kg/semana</h2>
+<p>{{ youngHighFeedCount }} animais</p>
+
+<a href="{{ path('farm_index') }}" class="btn btn-secondary mt-3">⬅️ Voltar</a>
+{% endblock %}

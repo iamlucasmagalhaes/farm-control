@@ -207,6 +207,13 @@
         <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\FarmController"/>
       </call>
     </service>
+    <service id="App\Controller\ReportController" class="App\Controller\ReportController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\ReportController"/>
+      </call>
+    </service>
     <service id="App\Controller\VeterinarianController" class="App\Controller\VeterinarianController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -270,7 +277,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.DUkBJOg"/>
+      <argument type="service" id=".service_locator.1yRCcie"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1435,7 +1442,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.DUkBJOg"/>
+      <argument type="service" id=".service_locator.1yRCcie"/>
     </service>
     <service id="routing.resolver" class="Symfony\Component\Config\Loader\LoaderResolver">
       <call method="addLoader">
@@ -3339,6 +3346,9 @@
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\FarmController" class="App\Controller\FarmController" autowire="true" abstract="true"/>
     <service id=".instanceof.App\Controller\FarmController.0.App\Controller\FarmController" class="App\Controller\FarmController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\FarmController" class="App\Controller\FarmController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ReportController" class="App\Controller\ReportController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ReportController" class="App\Controller\ReportController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\ReportController" class="App\Controller\ReportController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\VeterinarianController" class="App\Controller\VeterinarianController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\VeterinarianController" class="App\Controller\VeterinarianController" autowire="true" abstract="true"/>
     <service id=".instanceof.App\Controller\VeterinarianController.0.App\Controller\VeterinarianController" class="App\Controller\VeterinarianController" autowire="true" abstract="true"/>
@@ -3890,6 +3900,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.riTBY7f" method="withContext"/>
     </service>
+    <service id=".service_locator.teflrFp.App\Controller\ReportController::farmReports()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\ReportController::farmReports()"/>
+      <argument>App\Controller\ReportController::farmReports()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.teflrFp" method="withContext"/>
+    </service>
     <service id=".service_locator.Jiq8tTe" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -3927,7 +3943,7 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.lDWHgod" method="withContext"/>
     </service>
-    <service id=".service_locator.DUkBJOg" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.1yRCcie" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
@@ -3943,6 +3959,7 @@
         <argument key="App\Controller\FarmController::addFarm" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\FarmController::addFarm()"/>
         <argument key="App\Controller\FarmController::editFarm" type="service_closure" id=".service_locator.riTBY7f.App\Controller\FarmController::editFarm()"/>
         <argument key="App\Controller\FarmController::removeFarm" type="service_closure" id=".service_locator.riTBY7f.App\Controller\FarmController::removeFarm()"/>
+        <argument key="App\Controller\ReportController::farmReports" type="service_closure" id=".service_locator.teflrFp.App\Controller\ReportController::farmReports()"/>
         <argument key="App\Controller\VeterinarianController::index" type="service_closure" id=".service_locator.Jiq8tTe.App\Controller\VeterinarianController::index()"/>
         <argument key="App\Controller\VeterinarianController::addVeterinarian" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\VeterinarianController::addVeterinarian()"/>
         <argument key="App\Controller\VeterinarianController::editVeterinarian" type="service_closure" id=".service_locator.lDWHgod.App\Controller\VeterinarianController::editVeterinarian()"/>
@@ -3958,6 +3975,7 @@
         <argument key="App\Controller\FarmController:addFarm" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\FarmController::addFarm()"/>
         <argument key="App\Controller\FarmController:editFarm" type="service_closure" id=".service_locator.riTBY7f.App\Controller\FarmController::editFarm()"/>
         <argument key="App\Controller\FarmController:removeFarm" type="service_closure" id=".service_locator.riTBY7f.App\Controller\FarmController::removeFarm()"/>
+        <argument key="App\Controller\ReportController:farmReports" type="service_closure" id=".service_locator.teflrFp.App\Controller\ReportController::farmReports()"/>
         <argument key="App\Controller\VeterinarianController:index" type="service_closure" id=".service_locator.Jiq8tTe.App\Controller\VeterinarianController::index()"/>
         <argument key="App\Controller\VeterinarianController:addVeterinarian" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\VeterinarianController::addVeterinarian()"/>
         <argument key="App\Controller\VeterinarianController:editVeterinarian" type="service_closure" id=".service_locator.lDWHgod.App\Controller\VeterinarianController::editVeterinarian()"/>
@@ -4126,6 +4144,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.ZyP9f7K" method="withContext"/>
     </service>
+    <service id=".service_locator.ZyP9f7K.App\Controller\ReportController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\ReportController"/>
+      <argument>App\Controller\ReportController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.ZyP9f7K" method="withContext"/>
+    </service>
     <service id=".service_locator.ZyP9f7K.App\Controller\VeterinarianController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\VeterinarianController"/>
       <argument>App\Controller\VeterinarianController</argument>
@@ -4245,6 +4269,7 @@
           <argument>App\Kernel</argument>
           <argument>App\Controller\CowController</argument>
           <argument>App\Controller\FarmController</argument>
+          <argument>App\Controller\ReportController</argument>
           <argument>App\Controller\VeterinarianController</argument>
           <argument>Doctrine\Bundle\DoctrineBundle\Controller\ProfilerController</argument>
         </argument>
@@ -5063,7 +5088,7 @@
     <service id="Twig\Environment" alias="twig"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.DUkBJOg"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.1yRCcie"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>

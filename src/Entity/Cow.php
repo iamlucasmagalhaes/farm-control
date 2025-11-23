@@ -200,5 +200,4 @@ class Cow
             ($this->milkperweek < 70 && $foodPerDay > 50) ||
             $weightArroba > 18;
     }
-
 }
