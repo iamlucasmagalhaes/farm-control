@@ -12,6 +12,7 @@ return [
         '/gado/adicionar' => [[['_route' => 'cow_add', '_controller' => 'App\\Controller\\CowController::addCow'], null, null, null, false, false, null]],
         '/fazenda' => [[['_route' => 'farm_index', '_controller' => 'App\\Controller\\FarmController::index'], null, null, null, false, false, null]],
         '/fazenda/adicionar' => [[['_route' => 'farm_add', '_controller' => 'App\\Controller\\FarmController::addFarm'], null, null, null, false, false, null]],
+        '/' => [[['_route' => 'home', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
         '/veterinario' => [[['_route' => 'veterinarian_index', '_controller' => 'App\\Controller\\VeterinarianController::index'], null, null, null, false, false, null]],
         '/veterinario/adicionar' => [[['_route' => 'veterinarian_add', '_controller' => 'App\\Controller\\VeterinarianController::addVeterinarian'], null, null, null, false, false, null]],
     ],

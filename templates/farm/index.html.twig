@@ -1,51 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-    {{ title }}
-{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="mb-0">{{ title }}</h1>
-        <a href="{{ path('farm_add') }}" class="btn btn-success">Cadastrar Fazenda</a>
-    </div>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="mb-0">{{ title }}</h1>
+    <a href="{{ path('farm_add') }}" class="btn btn-success">Cadastrar Fazenda</a>
+</div>
 
-    <table class="table table-striped table-bordered align-middle">
-        <thead class="table-dark">
+<table class="table table-striped table-bordered align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>{{ knp_pagination_sortable(pagination, '#', 'f.id') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Nome', 'f.name') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Tamanho (ha)', 'f.size') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Responsável', 'f.responsible') }}</th>
+            <th>Veterinários</th>
+            <th class="text-center">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for farm in pagination %}
             <tr>
-                <th>#</th>
-                <th>Nome</th>
-                <th>Tamanho</th>
-                <th>Responsável</th>
-                <th>Veterinários</th>
-                <th class="text-center">Ações</th>
+                <td>{{ farm.id }}</td>
+                <td>{{ farm.name }}</td>
+                <td>{{ farm.size }} ha</td>
+                <td>{{ farm.responsible }}</td>
+                <td>
+                    {% if farm.veterinarian|length > 0 %}
+                        <ul class="ps-3 m-0">
+                            {% for vet in farm.veterinarian %}
+                                <li>{{ vet.name }} <span class="text-muted">(CRMV: {{ vet.crmv }})</span></li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <span class="text-muted fst-italic">Nenhum veterinário</span>
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    <a href="{{ path('farm_edit', {id: farm.id}) }}" class="btn btn-sm btn-primary">✏️ Editar</a>
+                    <a href="{{ path('farm_remove', {id: farm.id}) }}" class="btn btn-sm btn-danger">🗑️ Excluir</a>
+                    <a href="{{ path('farm_reports', {id: farm.id}) }}" class="btn btn-sm btn-info">📊 Relatórios</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            {% for farm in farms %}
-                <tr>
-                    <td>{{ farm.id }}</td>
-                    <td>{{ farm.name }}</td>
-                    <td>{{ farm.size }} ha</td>
-                    <td>{{ farm.responsible }}</td>
-                    <td>
-                        {% if farm.veterinarian|length > 0 %}
-                            <ul class="ps-3 m-0">
-                                {% for vet in farm.veterinarian %}
-                                    <li>{{ vet.name }} <span class="text-muted">(CRMV: {{ vet.crmv }})</span></li>
-                                {% endfor %}
-                            </ul>
-                        {% else %}
-                            <span class="text-muted fst-italic">Nenhum veterinário</span>
-                        {% endif %}
-                    </td>
-                    <td class="text-center">
-                        <a href="{{ path('farm_edit', {id: farm.id}) }}" class="btn btn-sm btn-primary">✏️ Editar</a>
-                        <a href="{{ path('farm_remove', {id: farm.id}) }}" class="btn btn-sm btn-danger">🗑️ Excluir</a>
-                        <a href="{{ path('farm_reports', {id: farm.id}) }}" class="btn btn-sm btn-info">📊 Relatórios</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        {% else %}
+            <tr>
+                <td colspan="6" class="text-center text-muted py-3">Nenhuma fazenda encontrada.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-center">
+    {{ knp_pagination_render(pagination) }}
+</div>
 {% endblock %}

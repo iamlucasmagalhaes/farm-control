@@ -3,52 +3,84 @@
 {% block title %}Relatórios da Fazenda{% endblock %}
 
 {% block body %}
-<h1>Relatórios da Fazenda</h1>
+<div class="container mt-4">
 
-<h2>Animais Abatidos</h2>
-<table class="table table-striped table-bordered">
-    <thead class="table-dark">
-        <tr>
-            <th>Código</th>
-            <th>Fazenda</th>
-            <th>Data de Abate</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for cow in slaughteredCows %}
-            <tr>
-                <td>{{ cow.code ?? 'Sem código' }}</td>
-                <td>
-                    {% if cow.farm %}
-                        {{ cow.farm.name }}
+    <h1 class="mb-4">📊 Relatórios da Fazenda</h1>
+
+    {# ---- CARDS DE INDICADORES ---- #}
+    <div class="row g-3 mb-4">
+
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="card shadow-sm border-0 bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Produção Total de Leite</h5>
+                    <p class="card-text display-6 fw-bold">{{ totalMilk }} L/semana</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="card shadow-sm border-0 bg-warning text-dark">
+                <div class="card-body">
+                    <h5 class="card-title">Consumo Total de Ração</h5>
+                    <p class="card-text display-6 fw-bold">{{ totalFeed }} Kg/semana</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="card shadow-sm border-0 bg-danger text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Animais até 1 ano com > 500Kg</h5>
+                    <p class="card-text display-6 fw-bold">{{ youngHighFeedCount }}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {# ---- LISTA DE ANIMAIS ABATIDOS ---- #}
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h4 class="m-0">🥩 Animais Abatidos</h4>
+        </div>
+
+        <div class="table-responsive"> {# <-- Torna a tabela rolável no mobile #}
+            <table class="table table-striped table-hover align-middle m-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Código</th>
+                        <th>Fazenda</th>
+                        <th>Data do Abate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cow in slaughteredCows %}
+                        <tr>
+                            <td>{{ cow.code ?? 'Sem código' }}</td>
+                            <td>{{ cow.farm ? cow.farm.name : 'Sem fazenda' }}</td>
+                            <td>
+                                {% if cow.slaughterdate %}
+                                    {{ cow.slaughterdate|date('d/m/Y') }}
+                                {% else %}
+                                    <span class="text-muted">—</span>
+                                {% endif %}
+                            </td>
+                        </tr>
                     {% else %}
-                        Sem fazenda
-                    {% endif %}
-                </td>
-                <td>
-                    {% if cow.slaughterdate %}
-                        {{ cow.slaughterdate|date('d/m/Y') }}
-                    {% else %}
-                        -
-                    {% endif %}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3" class="text-center">Nenhum animal abatido.</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+                        <tr>
+                            <td colspan="3" class="text-center text-muted py-3">
+                                Nenhum animal abatido.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-<h2>Produção de Leite</h2>
-<p>{{ totalMilk }} litros/semana</p>
+    </div>
 
-<h2>Consumo de Ração</h2>
-<p>{{ totalFeed }} Kg/semana</p>
+    <a href="{{ path('farm_index') }}" class="btn btn-secondary mt-4">⬅️ Voltar</a>
 
-<h2>Animais até 1 ano consumindo > 500Kg/semana</h2>
-<p>{{ youngHighFeedCount }} animais</p>
-
-<a href="{{ path('farm_index') }}" class="btn btn-secondary mt-3">⬅️ Voltar</a>
+</div>
 {% endblock %}

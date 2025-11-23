@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+
+    <h1 class="text-center mb-4 fw-bold">Farm Control</h1>
+    <p class="text-center text-muted mb-5">Escolha uma área para gerenciar</p>
+
+    <div class="row g-4">
+
+        <!-- Card Fazendas -->
+        <div class="col-md-4">
+            <a href="{{ path('farm_index') }}" class="text-decoration-none">
+                <div class="card shadow-lg border-0" style="background-color:#4e73df; color:white;">
+                    <div class="card-body text-center py-5">
+                        <h2 class="fw-bold mb-3">🏡 Fazendas</h2>
+                        <p>Gerencie todas as fazendas cadastradas.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Card Veterinários -->
+        <div class="col-md-4">
+            <a href="{{ path('veterinarian_index') }}" class="text-decoration-none">
+                <div class="card shadow-lg border-0" style="background-color:#1cc88a; color:white;">
+                    <div class="card-body text-center py-5">
+                        <h2 class="fw-bold mb-3">👨‍⚕️ Veterinários</h2>
+                        <p>Gerencie os profissionais responsáveis.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Card Gado -->
+        <div class="col-md-4">
+            <a href="{{ path('cow_index') }}" class="text-decoration-none">
+                <div class="card shadow-lg border-0" style="background-color:#e74a3b; color:white;">
+                    <div class="card-body text-center py-5">
+                        <h2 class="fw-bold mb-3">🐄 Gado</h2>
+                        <p>Gerencie os animais da fazenda.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
