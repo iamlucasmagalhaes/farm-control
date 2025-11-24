@@ -23,7 +23,7 @@ O comando acima executa automaticamente:
 * Migrations
 * Seed com dados de teste
 
-Agora é basta acessar o projeto em: http://localhost:8080
+Agora basta acessar o projeto em: http://localhost:8080
 
 ## Funcionalidades principais
 
