@@ -101,7 +101,6 @@ class CowController extends AbstractController
 
             $currentAnimals = $farm->getCows()->filter(fn ($c) => $c->isAlive())->count();
 
-            // Se o animal sendo editado estiver vivo, subtrai ele para avaliar a mudança de fazenda
             if ($cow->isAlive()) {
                 $currentAnimals--;
             }

@@ -47,11 +47,11 @@ class CowRepository extends ServiceEntityRepository
     public function createSlaughteredCowsQuery(): QueryBuilder
     {
         return $this->createQueryBuilder('c')
-            ->select('c', 'f') // Seleciona Cow (c) e Farm (f) para evitar lazy loading
-            ->leftJoin('c.farm', 'f') // Faz o Join com a Farm
-            ->where('c.isslaughtered = :isSlaughtered') // Filtra por animais abatidos
+            ->select('c', 'f') 
+            ->leftJoin('c.farm', 'f')
+            ->where('c.isslaughtered = :isSlaughtered') 
             ->setParameter('isSlaughtered', true)
-            ->orderBy('c.slaughterdate', 'DESC'); // Ordena do mais recente para o mais antigo
+            ->orderBy('c.slaughterdate', 'DESC');
     } 
     
     public function getTotalMilkProducedPerWeek(): float
@@ -76,14 +76,13 @@ class CowRepository extends ServiceEntityRepository
 
     public function countYoungHighFeedConsumers(): int
     {
-        // Calcula a data limite para idade <= 1 ano (1 ano atrás)
         $dateLimit1Year = new \DateTime('-1 year');
 
         return $this->createQueryBuilder('c')
             ->select('COUNT(c.id)')
             ->where('c.isalive = :isAlive')
-            ->andWhere('c.birthdate >= :dateLimit1Year') // Nascidos APÓS esta data
-            ->andWhere('c.foodperweek > :feedLimit')     // Consumo maior que 500Kg
+            ->andWhere('c.birthdate >= :dateLimit1Year')
+            ->andWhere('c.foodperweek > :feedLimit')
             ->setParameter('isAlive', true)
             ->setParameter('dateLimit1Year', $dateLimit1Year)
             ->setParameter('feedLimit', 500.0)

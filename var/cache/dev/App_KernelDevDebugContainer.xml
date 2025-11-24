@@ -195,6 +195,18 @@
       <tag name="controller.service_arguments"/>
       <tag name="routing.route_loader"/>
     </service>
+    <service id="App\Command\SeedCommand" class="App\Command\SeedCommand" autowire="true" autoconfigure="true">
+      <tag name="console.command" command="app:seed" description="Popula o banco com veterinários, fazendas e gado (dados válidos)." help=""/>
+      <tag name="console.command"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+      <call method="setName">
+        <argument>app:seed</argument>
+      </call>
+      <call method="setDescription">
+        <argument>Popula o banco com veterinários, fazendas e gado (dados válidos).</argument>
+      </call>
+    </service>
     <service id="App\Command\TestFarmLimitCommand" class="App\Command\TestFarmLimitCommand" autowire="true" autoconfigure="true">
       <tag name="console.command" command="app:test-farm-limit" description="Testa o limite de 18 animais por hectare." help=""/>
       <tag name="console.command"/>
@@ -4245,6 +4257,9 @@
       <argument>page</argument>
       <argument>false</argument>
     </service>
+    <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\SeedCommand" class="App\Command\SeedCommand" autowire="true" abstract="true"/>
+    <service id=".instanceof.App\Command\SeedCommand.0.App\Command\SeedCommand" class="App\Command\SeedCommand" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Command\SeedCommand" class="App\Command\SeedCommand" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\TestFarmLimitCommand" class="App\Command\TestFarmLimitCommand" autowire="true" abstract="true"/>
     <service id=".instanceof.App\Command\TestFarmLimitCommand.0.App\Command\TestFarmLimitCommand" class="App\Command\TestFarmLimitCommand" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Command\TestFarmLimitCommand" class="App\Command\TestFarmLimitCommand" autowire="true" autoconfigure="true" abstract="true"/>
@@ -5254,6 +5269,13 @@
     <service id=".errored..service_locator.zHyJIs5.Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.zHyJIs5&quot;: it needs an instance of &quot;Symfony\Component\Config\Loader\LoaderInterface&quot; but this type has been excluded from autowiring."/>
     </service>
+    <service id=".App\Command\SeedCommand.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>app:seed</argument>
+      <argument type="collection"/>
+      <argument>Popula o banco com veterinários, fazendas e gado (dados válidos).</argument>
+      <argument>false</argument>
+      <argument type="service_closure" id="App\Command\SeedCommand"/>
+    </service>
     <service id=".App\Command\TestFarmLimitCommand.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>app:test-farm-limit</argument>
       <argument type="collection"/>
@@ -5807,8 +5829,9 @@
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.n5ZELu2"/>
+      <argument type="service" id=".service_locator.zw97UUM"/>
       <argument type="collection">
+        <argument key="app:seed">App\Command\SeedCommand</argument>
         <argument key="app:test-farm-limit">App\Command\TestFarmLimitCommand</argument>
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
@@ -5909,9 +5932,10 @@
         <argument key="make:webhook">maker.auto_command.make_webhook</argument>
       </argument>
     </service>
-    <service id=".service_locator.n5ZELu2" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.zw97UUM" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Command\SeedCommand" type="service_closure" id=".App\Command\SeedCommand.lazy"/>
         <argument key="App\Command\TestFarmLimitCommand" type="service_closure" id=".App\Command\TestFarmLimitCommand.lazy"/>
         <argument key="console.command.about" type="service_closure" id=".console.command.about.lazy"/>
         <argument key="console.command.assets_install" type="service_closure" id=".console.command.assets_install.lazy"/>

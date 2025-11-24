@@ -11,7 +11,6 @@
         #[Route('/fazenda/{id}/reports', name: 'farm_reports')]
         public function farmReports(int $id, CowRepository $cowRepository): Response
         {
-            // Pega os animais da fazenda específica
             $slaughteredCows = $cowRepository->createQueryBuilder('c')
                 ->where('c.farm = :farmId')
                 ->andWhere('c.isslaughtered = :isSlaughtered')
